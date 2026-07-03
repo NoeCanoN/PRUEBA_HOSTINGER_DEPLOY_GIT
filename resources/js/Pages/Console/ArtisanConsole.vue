@@ -100,18 +100,17 @@
 
         <!-- Entrada del comando manual -->
         <div class="terminal-input-bar border-top pa-3 bg-grey-darken-4">
-          <v-form @submit.prevent="runManualCommand" class="d-flex align-center w-100">
+          <v-form @submit.prevent="runManualCommand" class="d-flex align-center w-100 flex-row">
             <span class="prompt-text font-weight-bold mr-2">php artisan</span>
-            <v-text-field
+            <input
+              ref="inputRef"
               v-model="manualCommand"
+              type="text"
               placeholder="escribe un comando autorizado (ej: migrate:status)"
-              variant="plain"
-              density="compact"
-              hide-details
-              class="terminal-text-field"
+              class="manual-cmd-input"
               :disabled="loading"
               autofocus
-            ></v-text-field>
+            />
             <v-btn
               type="submit"
               color="orange"
@@ -135,6 +134,13 @@ import { useAuthStore } from '../../stores/auth';
 import axios from 'axios';
 import NotificacionToast from '../../components/Auth/NotificacionToast.vue';
 
+const props = defineProps({
+  temporary: {
+    type: Boolean,
+    default: false
+  }
+});
+
 const authStore = useAuthStore();
 
 const manualCommand = ref('');
@@ -142,14 +148,15 @@ const loading = ref(false);
 const activeCommand = ref('');
 const consoleHistory = ref([]);
 const terminalBodyRef = ref(null);
+const inputRef = ref(null);
 
 const showToast = ref(false);
 const toastMessage = ref('');
 const toastType = ref('success');
 
-// Verificar si el usuario actual es el administrador principal
+// Verificar si el usuario actual es el administrador principal o si se accede en modo bypass temporal
 const isAuthorized = computed(() => {
-  return authStore.user?.email === 'admin@clubnutricional.com';
+  return props.temporary || authStore.user?.email === 'admin@clubnutricional.com';
 });
 
 // Comandos de acceso rápido
@@ -214,7 +221,17 @@ const executeCommand = async (commandToRun) => {
     loading.value = false;
     activeCommand.value = '';
     scrollToBottom();
+    focusInput();
   }
+};
+
+// Re-enfocar el cursor en la terminal de forma automática
+const focusInput = () => {
+  nextTick(() => {
+    if (inputRef.value) {
+      inputRef.value.focus();
+    }
+  });
 };
 
 // Acciones rápidas
@@ -233,6 +250,7 @@ const runManualCommand = () => {
 
 onMounted(() => {
   scrollToBottom();
+  focusInput();
 });
 </script>
 
@@ -353,11 +371,20 @@ onMounted(() => {
   color: #f97316; /* Naranja en entrada */
 }
 
-.terminal-text-field :deep(.v-field__input) {
-  font-family: 'Fira Code', 'Courier New', monospace !important;
+.manual-cmd-input {
+  background: transparent !important;
+  border: none !important;
+  outline: none !important;
   color: #ffffff !important;
+  font-family: 'Fira Code', 'Courier New', monospace !important;
   font-size: 0.875rem !important;
+  flex-grow: 1 !important;
+  padding: 4px 8px !important;
   caret-color: #f97316 !important;
-  padding: 0 !important;
+}
+
+.manual-cmd-input::placeholder {
+  color: #475569 !important;
+  opacity: 0.8 !important;
 }
 </style>

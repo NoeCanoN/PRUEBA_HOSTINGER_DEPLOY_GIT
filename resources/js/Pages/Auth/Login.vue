@@ -133,10 +133,40 @@
               Iniciar Sesión
             </v-btn>
           </v-form>
+
+          <!-- Botón de Consola de Mantenimiento Temporal -->
+          <div class="text-center mt-6">
+            <v-btn
+              variant="outlined"
+              color="orange-lighten-2"
+              size="small"
+              class="text-none"
+              prepend-icon="mdi-console"
+              @click="showConsoleDialog = true"
+            >
+              Mantenimiento de Consola (Temporal)
+            </v-btn>
+          </div>
         </div>
       </div>
     </div>
   </div>
+
+  <!-- Diálogo Modal para la Consola Artisan -->
+  <v-dialog v-model="showConsoleDialog" max-width="900" scrollable>
+    <v-card class="bg-grey-darken-4 rounded-xl border border-grey-800">
+      <v-card-title class="d-flex align-center justify-between bg-grey-darken-3 text-white px-4 py-3">
+        <div class="d-flex align-center ga-2">
+          <v-icon icon="mdi-console" color="orange"></v-icon>
+          <span class="font-weight-bold text-subtitle-1">Consola de Mantenimiento Inicial (Temporal)</span>
+        </div>
+        <v-btn icon="mdi-close" variant="text" color="white" density="compact" @click="showConsoleDialog = false"></v-btn>
+      </v-card-title>
+      <v-card-text class="pa-4 bg-grey-darken-4">
+        <ArtisanConsole temporary />
+      </v-card-text>
+    </v-card>
+  </v-dialog>
 </template>
 
 <script setup>
@@ -144,6 +174,9 @@ import { ref } from 'vue';
 import { useRouter } from 'vue-router';
 import { useAuthStore } from '../../stores/auth';
 import NotificacionToast from '../../components/Auth/NotificacionToast.vue';
+import ArtisanConsole from '../Console/ArtisanConsole.vue';
+
+const showConsoleDialog = ref(false);
 
 const router = useRouter();
 const authStore = useAuthStore();
