@@ -2,9 +2,10 @@
 
 namespace Database\Seeders;
 
-use App\Models\User;
+use App\Models\User\User;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\Hash;
 
 class DatabaseSeeder extends Seeder
 {
@@ -15,11 +16,17 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
-        // User::factory(10)->create();
+        // Limpiar usuarios previos para evitar conflictos de email único
+        User::query()->delete();
 
-        User::factory()->create([
-            'name' => 'Test User',
-            'email' => 'test@example.com',
+        // Crear usuario administrador del Club Nutricional
+        User::create([
+            'name' => 'Administrador Club',
+            'email' => 'admin@clubnutricional.com',
+            'password' => Hash::make('password123'),
         ]);
+
+        // Registrar seeders adicionales
+        $this->call(NumeroSeeder::class);
     }
 }
