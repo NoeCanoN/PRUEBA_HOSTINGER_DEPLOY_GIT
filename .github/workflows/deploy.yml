@@ -31,9 +31,9 @@ jobs:
         port: 21
         protocol: ftp
         timeout: 60000
-        # NOTA: Asegúrate de que esta sea la ruta correcta de tu proyecto en Hostinger.
-        # Si tu proyecto está en una carpeta dentro de public_html, ej. /public_html/clubnutricional/, cámbialo aquí.
-        server-dir: /public_html/
+        # El directorio raíz de tu usuario FTP ya es la carpeta public_html de tu dominio,
+        # por lo que debemos subir los archivos directamente a la raíz (./).
+        server-dir: ./
         # Excluimos directorios locales/remotos para evitar que la acción de FTP
         # borre cosas críticas en Hostinger (como vendor, storage, .env, etc.)
         exclude: |
