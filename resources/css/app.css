@@ -1,2 +1,86 @@
-/* Estilos globales del Club Nutricional */
+/* ============================================================
+   Estilos globales del Club Nutricional
+   ============================================================ */
 
+:root {
+    --cn-font: 'Outfit', 'Inter', system-ui, -apple-system, sans-serif;
+    --cn-primary: #F97316;
+    --cn-primary-dark: #EA580C;
+    --cn-accent: #F59E0B;
+    --cn-slate: #0F172A;
+    --cn-glass: rgba(255, 255, 255, 0.65);
+    --cn-glass-border: rgba(255, 255, 255, 0.55);
+}
+
+* {
+    font-family: var(--cn-font);
+}
+
+html,
+body,
+#app {
+    height: 100%;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    background-color: #0f172a;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+/* La aplicación Vuetify queda transparente para mostrar el fondo */
+.v-application {
+    font-family: var(--cn-font) !important;
+    background: transparent !important;
+    color: var(--cn-slate);
+    letter-spacing: -0.01em;
+}
+
+/* ============================================================
+   Scrollbar personalizada (acento naranja)
+   ============================================================ */
+::-webkit-scrollbar {
+    width: 10px;
+    height: 10px;
+}
+
+::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+    background: rgba(249, 115, 22, 0.4);
+    border-radius: 999px;
+    border: 2px solid transparent;
+    background-clip: content-box;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: rgba(249, 115, 22, 0.65);
+    background-clip: content-box;
+}
+
+/* Selección de texto */
+::selection {
+    background: rgba(249, 115, 22, 0.25);
+    color: var(--cn-slate);
+}
+
+/* ============================================================
+   Utilidades de glassmorphism reutilizables
+   ============================================================ */
+.cn-glass {
+    background: var(--cn-glass);
+    backdrop-filter: blur(18px) saturate(150%);
+    -webkit-backdrop-filter: blur(18px) saturate(150%);
+    border: 1px solid var(--cn-glass-border);
+}
+
+.cn-glass-strong {
+    background: rgba(255, 255, 255, 0.82);
+    backdrop-filter: blur(22px) saturate(160%);
+    -webkit-backdrop-filter: blur(22px) saturate(160%);
+    border: 1px solid rgba(255, 255, 255, 0.6);
+}
