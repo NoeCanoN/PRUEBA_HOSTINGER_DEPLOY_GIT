@@ -1,0 +1,13 @@
+<IfModule mod_rewrite.c>
+    <IfModule mod_negotiation.c>
+        Options -MultiViews -Indexes
+    </IfModule>
+
+    RewriteEngine On
+
+    # Reescribe todas las peticiones hacia /public (fallback para shared hosting
+    # cuando no se puede cambiar el document root a la carpeta public/).
+    # Si en hPanel ya apuntaste el document root a .../public, NO necesitas este archivo.
+    RewriteCond %{REQUEST_URI} !^/public
+    RewriteRule ^(.*)$ public/$1 [L]
+</IfModule>
