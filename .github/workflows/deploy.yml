@@ -28,6 +28,9 @@ jobs:
         server: ${{ secrets.FTP_SERVER }}
         username: ${{ secrets.FTP_USERNAME }}
         password: ${{ secrets.FTP_PASSWORD }}
+        port: 21
+        protocol: ftp
+        timeout: 60000
         # NOTA: Asegúrate de que esta sea la ruta correcta de tu proyecto en Hostinger.
         # Si tu proyecto está en una carpeta dentro de public_html, ej. /public_html/clubnutricional/, cámbialo aquí.
         server-dir: /public_html/

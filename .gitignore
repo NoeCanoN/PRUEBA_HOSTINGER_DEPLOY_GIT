@@ -35,3 +35,6 @@ Thumbs.db
 
 # SQLite local (no se usa en producción; en Hostinger se usa MySQL)
 /database/*.sqlite
+
+# Test
+test-ftp.php
