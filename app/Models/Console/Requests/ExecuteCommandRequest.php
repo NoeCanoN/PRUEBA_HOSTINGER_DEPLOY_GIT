@@ -12,11 +12,8 @@ class ExecuteCommandRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        // Temporalmente habilitado para migraciones iniciales sin login
-        return true;
-        
-        // $user = $this->user();
-        // return $user && $user->email === 'admin@clubnutricional.com';
+        $user = $this->user();
+        return $user && $user->email === 'admin@clubnutricional.com';
     }
 
     /**

@@ -134,13 +134,6 @@ import { useAuthStore } from '../../stores/auth';
 import axios from 'axios';
 import NotificacionToast from '../../components/Auth/NotificacionToast.vue';
 
-const props = defineProps({
-  temporary: {
-    type: Boolean,
-    default: false
-  }
-});
-
 const authStore = useAuthStore();
 
 const manualCommand = ref('');
@@ -154,9 +147,9 @@ const showToast = ref(false);
 const toastMessage = ref('');
 const toastType = ref('success');
 
-// Verificar si el usuario actual es el administrador principal o si se accede en modo bypass temporal
+// Verificar si el usuario actual es el administrador principal
 const isAuthorized = computed(() => {
-  return props.temporary || authStore.user?.email === 'admin@clubnutricional.com';
+  return authStore.user?.email === 'admin@clubnutricional.com';
 });
 
 // Comandos de acceso rápido

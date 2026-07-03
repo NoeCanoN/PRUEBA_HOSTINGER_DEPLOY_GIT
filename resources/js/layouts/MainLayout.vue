@@ -1,7 +1,7 @@
 <template>
   <div class="app-layout">
     <!-- Header (V-App-Bar) -->
-    <v-app-bar elevation="1" class="header-bar bg-white px-4" height="64">
+    <v-app-bar flat class="header-bar px-4" height="64">
       <!-- Icono de Menú para móvil y alternar colapso en PC -->
       <v-app-bar-nav-icon
         color="orange"
@@ -82,7 +82,7 @@
       :rail="rail"
       permanent
       elevation="0"
-      class="sidebar-drawer border-right"
+      class="sidebar-drawer"
       :width="260"
     >
       <v-list nav class="nav-list mt-4">
@@ -130,10 +130,11 @@
 </template>
 
 <script setup>
-import { ref, computed } from 'vue';
+import { ref, computed, onMounted } from 'vue';
 import { useRouter } from 'vue-router';
 import { useAuthStore } from '../stores/auth';
 import { useDisplay } from 'vuetify';
+import gsap from 'gsap';
 
 const router = useRouter();
 const authStore = useAuthStore();
@@ -188,6 +189,35 @@ const handleLogout = async () => {
     logoutLoading.value = false;
   }
 };
+
+// Animaciones de entrada al montar el Layout
+onMounted(() => {
+  // Animación del Sidebar
+  gsap.from('.sidebar-drawer', {
+    x: -260,
+    opacity: 0,
+    duration: 0.8,
+    ease: 'power3.out'
+  });
+
+  // Animación del Header
+  gsap.from('.header-bar', {
+    y: -64,
+    opacity: 0,
+    duration: 0.8,
+    ease: 'power3.out'
+  });
+
+  // Animación escalonada para los items del menú de navegación
+  gsap.from('.nav-item', {
+    x: -30,
+    opacity: 0,
+    duration: 0.6,
+    stagger: 0.08,
+    delay: 0.2,
+    ease: 'power2.out'
+  });
+});
 </script>
 
 <style scoped>
@@ -195,12 +225,21 @@ const handleLogout = async () => {
 .app-layout {
   min-height: 100vh;
   display: flex;
-  background-color: #f8fafc;
+  background: radial-gradient(at 0% 0%, rgba(249, 115, 22, 0.15) 0px, transparent 50%),
+              radial-gradient(at 50% 0%, rgba(99, 102, 241, 0.15) 0px, transparent 50%),
+              radial-gradient(at 100% 0%, rgba(236, 72, 153, 0.12) 0px, transparent 50%),
+              radial-gradient(at 100% 100%, rgba(249, 115, 22, 0.08) 0px, transparent 50%),
+              radial-gradient(at 0% 100%, rgba(99, 102, 241, 0.1) 0px, transparent 50%),
+              #f8fafc;
 }
 
-/* Header */
+/* Header Glassmorphism */
 .header-bar {
-  border-bottom: 1px solid rgba(0, 0, 0, 0.05) !important;
+  background: rgba(255, 255, 255, 0.45) !important;
+  backdrop-filter: blur(16px) saturate(120%) !important;
+  -webkit-backdrop-filter: blur(16px) saturate(120%) !important;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.3) !important;
+  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.03) !important;
 }
 
 .brand-container {
@@ -213,22 +252,29 @@ const handleLogout = async () => {
 }
 
 .profile-btn {
-  border: 1px solid rgba(0, 0, 0, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.5);
+  background: rgba(255, 255, 255, 0.25) !important;
+  backdrop-filter: blur(4px);
 }
 
 .profile-btn:hover {
-  background-color: rgba(249, 115, 22, 0.03) !important;
+  background-color: rgba(249, 115, 22, 0.05) !important;
 }
 
 .profile-menu-card {
-  border: 1px solid rgba(0, 0, 0, 0.05);
+  background: rgba(255, 255, 255, 0.85) !important;
+  backdrop-filter: blur(16px) !important;
+  border: 1px solid rgba(255, 255, 255, 0.5) !important;
   min-width: 220px;
 }
 
-/* Sidebar */
+/* Sidebar Glassmorphism */
 .sidebar-drawer {
-  background: linear-gradient(180deg, #fafbfd 0%, #f4f6fa 100%) !important;
-  border-right: 1px solid rgba(0, 0, 0, 0.05) !important;
+  background: rgba(255, 255, 255, 0.45) !important;
+  backdrop-filter: blur(16px) saturate(120%) !important;
+  -webkit-backdrop-filter: blur(16px) saturate(120%) !important;
+  border-right: 1px solid rgba(255, 255, 255, 0.3) !important;
+  box-shadow: 4px 0 30px rgba(0, 0, 0, 0.02) !important;
 }
 
 .nav-list {
@@ -238,8 +284,9 @@ const handleLogout = async () => {
 
 .nav-item {
   color: #475569 !important;
-  font-weight: 500;
-  transition: all 0.2s ease-in-out;
+  font-weight: 600;
+  border-radius: 12px !important;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .nav-item :deep(.v-list-item__spacer) {
@@ -247,16 +294,16 @@ const handleLogout = async () => {
 }
 
 .nav-item:hover {
-  background-color: rgba(249, 115, 22, 0.05) !important;
-  color: #f97316 !important;
+  background-color: rgba(249, 115, 22, 0.08) !important;
+  color: #ea580c !important;
   transform: translateX(4px);
 }
 
-/* Activo */
+/* Item de menú activo con gradiente y sombra naranja suave */
 .nav-item-active {
   background: linear-gradient(135deg, #f97316 0%, #ea580c 100%) !important;
   color: #ffffff !important;
-  box-shadow: 0 4px 15px rgba(249, 115, 22, 0.25) !important;
+  box-shadow: 0 4px 15px rgba(249, 115, 22, 0.35) !important;
   opacity: 1 !important;
 }
 
@@ -272,19 +319,19 @@ const handleLogout = async () => {
   color: #ffffff !important;
 }
 
-/* Contenido Principal */
+/* Contenido Principal con fondo transparente */
 .main-content {
   height: calc(100vh - 64px);
   overflow-y: auto;
-  background-color: #f8fafc;
+  background-color: transparent !important;
 }
 
 .border-right {
-  border-right: 1px solid rgba(0, 0, 0, 0.05) !important;
+  border-right: 1px solid rgba(255, 255, 255, 0.3) !important;
 }
 
 .border-top {
-  border-top: 1px solid rgba(0, 0, 0, 0.05) !important;
+  border-top: 1px solid rgba(255, 255, 255, 0.3) !important;
 }
 
 /* Transiciones */
