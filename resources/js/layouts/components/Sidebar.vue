@@ -6,7 +6,7 @@
     :temporary="display.mobile.value"
     floating
     :width="280"
-    :rail-width="86"
+    :rail-width="60"
     elevation="0"
     class="cn-sidebar"
   >
@@ -15,6 +15,7 @@
       <div class="d-flex align-center justify-space-between w-100" v-if="!rail">
         <v-btn
           v-if="!display.mobile.value"
+          class="cn-menu-toggle"
           variant="text"
           color="primary"
           icon="mdi-menu"
@@ -25,6 +26,7 @@
       <div class="d-flex flex-column align-center w-100" style="gap: 12px;" v-else>
         <v-btn
           v-if="!display.mobile.value"
+          class="cn-menu-toggle"
           variant="text"
           color="primary"
           icon="mdi-menu"
@@ -212,7 +214,11 @@ const menuItems = computed(() => {
   width: 48px !important;
   height: 48px !important;
   margin-inline: auto !important;
+  margin-inline-start: auto !important;
+  margin-inline-end: auto !important;
   padding: 0 !important;
+  padding-inline-start: 0 !important;
+  padding-inline-end: 0 !important;
   display: flex !important;
   justify-content: center !important;
   align-items: center !important;
@@ -227,7 +233,11 @@ const menuItems = computed(() => {
 
 .cn-sidebar.v-navigation-drawer--rail :deep(.v-list-item__prepend) {
   margin: 0 !important;
+  margin-inline-start: 0 !important;
+  margin-inline-end: 0 !important;
   padding: 0 !important;
+  padding-inline-start: 0 !important;
+  padding-inline-end: 0 !important;
   display: flex !important;
   justify-content: center !important;
   align-items: center !important;
@@ -237,6 +247,12 @@ const menuItems = computed(() => {
 
 .cn-sidebar.v-navigation-drawer--rail :deep(.v-list-item__prepend .v-icon) {
   margin: 0 !important;
+  margin-inline-start: 0 !important;
+  margin-inline-end: 0 !important;
+}
+
+.cn-sidebar.v-navigation-drawer--rail :deep(.v-list-item__spacer) {
+  display: none !important;
 }
 
 .cn-sidebar.v-navigation-drawer--rail :deep(.v-list-item__content) {
@@ -313,6 +329,23 @@ const menuItems = computed(() => {
 /* Botón toggle en la marca */
 .cn-brand-toggle {
   margin-left: auto;
+}
+
+.cn-menu-toggle {
+  transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1) !important;
+}
+
+.cn-menu-toggle:hover {
+  background: linear-gradient(135deg, #F97316 0%, #EA580C 100%) !important;
+  box-shadow: 0 4px 12px rgba(249, 115, 22, 0.3) !important;
+}
+
+.cn-menu-toggle:hover :deep(.v-icon) {
+  color: #ffffff !important;
+}
+
+.cn-menu-toggle:hover :deep(.v-btn__overlay) {
+  opacity: 0 !important;
 }
 
 @media (max-width: 960px) {
