@@ -1,11 +1,10 @@
 <template>
-  <NotificacionToast
-    v-model:show="showToast"
-    :message="toastMessage"
-    :type="toastType"
-  />
-
   <div class="console-page">
+    <NotificacionToast
+      v-model:show="showToast"
+      :message="toastMessage"
+      :type="toastType"
+    />
     <!-- Restricción de Seguridad en UI -->
     <v-alert
       v-if="!isAuthorized"
@@ -129,7 +128,7 @@
 </template>
 
 <script setup>
-import { ref, computed, onMounted, nextTick } from 'vue';
+import { ref, computed, onMounted, onUnmounted, nextTick } from 'vue';
 import { useAuthStore } from '../../stores/auth';
 import axios from 'axios';
 import NotificacionToast from '../../components/Auth/NotificacionToast.vue';
