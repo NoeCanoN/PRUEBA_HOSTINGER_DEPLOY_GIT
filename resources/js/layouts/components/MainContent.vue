@@ -33,7 +33,7 @@ onMounted(() => {
 }
 
 .cn-container {
-  max-width: 1320px;
+  max-width: calc(100% - 60px);
   padding: 8px 24px 40px !important;
 }
 

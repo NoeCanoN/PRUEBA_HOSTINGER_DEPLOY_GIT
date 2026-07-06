@@ -61,8 +61,8 @@
       </v-list-item>
     </v-list>
 
-    <template #append>
-      <!-- Tarjeta de plan (solo cuando no está colapsado) -->
+    <!-- Tarjeta de plan (solo cuando no está colapsado) -->
+    <!-- <template #append>
       <div v-if="!rail" class="cn-upgrade-card">
         <div class="cn-upgrade-glow"></div>
         <v-icon icon="mdi-seed-outline" color="white" class="mb-2" />
@@ -72,7 +72,7 @@
           Mejorar
         </v-btn>
       </div>
-    </template>
+    </template> -->
   </v-navigation-drawer>
 </template>
 
