@@ -6,77 +6,6 @@
     </div>
 
     <!-- ============================================================
-         SIDEBAR
-         ============================================================ -->
-    <v-navigation-drawer
-      v-model="drawer"
-      :rail="rail"
-      :permanent="!display.mobile.value"
-      :temporary="display.mobile.value"
-      floating
-      :width="280"
-      :rail-width="86"
-      elevation="0"
-      class="cn-sidebar"
-    >
-      <!-- Marca -->
-      <div class="cn-brand" :class="{ 'cn-brand--rail': rail }">
-        <div class="cn-brand-mark">
-          <v-icon icon="mdi-leaf" size="large" color="white" />
-        </div>
-        <transition name="fade-x">
-          <div v-if="!rail" class="cn-brand-text">
-            <span class="cn-brand-title">Club Nutricional</span>
-            <span class="cn-brand-sub">Bienestar & Salud</span>
-          </div>
-        </transition>
-      </div>
-
-      <div class="cn-section-label" v-if="!rail">Menú</div>
-
-      <!-- Navegación -->
-      <v-list nav density="comfortable" class="cn-nav">
-        <v-list-item
-          v-for="item in menuItems"
-          :key="item.value"
-          :to="item.route"
-          :prepend-icon="item.icon"
-          :title="item.title"
-          :value="item.value"
-          exact
-          rounded="xl"
-          class="cn-nav-item"
-          active-class="cn-nav-item--active"
-        />
-      </v-list>
-
-      <!-- Tarjeta de plan (solo expandido) -->
-      <template v-if="!rail" #append>
-        <div class="cn-upgrade-card">
-          <div class="cn-upgrade-glow"></div>
-          <v-icon icon="mdi-seed-outline" color="white" class="mb-2" />
-          <div class="cn-upgrade-title">Plan Premium</div>
-          <div class="cn-upgrade-text">Desbloquea planes y seguimiento avanzado.</div>
-          <v-btn block color="white" size="small" class="cn-upgrade-btn mt-3" prepend-icon="mdi-star-outline">
-            Mejorar
-          </v-btn>
-        </div>
-      </template>
-
-      <!-- Botón colapsar (rail) -->
-      <template v-else #append>
-        <div class="cn-rail-toggle">
-          <v-btn
-            variant="text"
-            color="primary"
-            icon="mdi-chevron-double-right"
-            @click="rail = false"
-          />
-        </div>
-      </template>
-    </v-navigation-drawer>
-
-    <!-- ============================================================
          HEADER
          ============================================================ -->
     <v-app-bar flat class="cn-header" height="72">
@@ -148,6 +77,77 @@
         </v-card>
       </v-menu>
     </v-app-bar>
+
+    <!-- ============================================================
+         SIDEBAR
+         ============================================================ -->
+    <v-navigation-drawer
+      v-model="drawer"
+      :rail="rail"
+      :permanent="!display.mobile.value"
+      :temporary="display.mobile.value"
+      floating
+      :width="280"
+      :rail-width="86"
+      elevation="0"
+      class="cn-sidebar"
+    >
+      <!-- Marca -->
+      <div class="cn-brand" :class="{ 'cn-brand--rail': rail }">
+        <div class="cn-brand-mark">
+          <v-icon icon="mdi-leaf" size="large" color="white" />
+        </div>
+        <transition name="fade-x">
+          <div v-if="!rail" class="cn-brand-text">
+            <span class="cn-brand-title">Club Nutricional</span>
+            <span class="cn-brand-sub">Bienestar & Salud</span>
+          </div>
+        </transition>
+      </div>
+
+      <div class="cn-section-label" v-if="!rail">Menú</div>
+
+      <!-- Navegación -->
+      <v-list nav density="comfortable" class="cn-nav">
+        <v-list-item
+          v-for="item in menuItems"
+          :key="item.value"
+          :to="item.route"
+          :prepend-icon="item.icon"
+          :title="item.title"
+          :value="item.value"
+          exact
+          rounded="xl"
+          class="cn-nav-item"
+          active-class="cn-nav-item--active"
+        />
+      </v-list>
+
+      <!-- Tarjeta de plan (solo expandido) -->
+      <template v-if="!rail" #append>
+        <div class="cn-upgrade-card">
+          <div class="cn-upgrade-glow"></div>
+          <v-icon icon="mdi-seed-outline" color="white" class="mb-2" />
+          <div class="cn-upgrade-title">Plan Premium</div>
+          <div class="cn-upgrade-text">Desbloquea planes y seguimiento avanzado.</div>
+          <v-btn block color="white" size="small" class="cn-upgrade-btn mt-3" prepend-icon="mdi-star-outline">
+            Mejorar
+          </v-btn>
+        </div>
+      </template>
+
+      <!-- Botón colapsar (rail) -->
+      <template v-else #append>
+        <div class="cn-rail-toggle">
+          <v-btn
+            variant="text"
+            color="primary"
+            icon="mdi-chevron-double-right"
+            @click="rail = false"
+          />
+        </div>
+      </template>
+    </v-navigation-drawer>
 
     <!-- ============================================================
          MAIN
@@ -288,9 +288,9 @@ onMounted(() => {
   -webkit-backdrop-filter: blur(22px) saturate(160%);
   border-right: 1px solid rgba(255, 255, 255, 0.5) !important;
   box-shadow: 8px 0 40px rgba(15, 23, 42, 0.08) !important;
-  border-radius: 0 28px 28px 0 !important;
-  margin: 16px 0 16px 16px;
-  height: calc(100vh - 32px) !important;
+  border-radius: 0 !important;
+  margin: 0 !important;
+  height: calc(100vh - 72px) !important;
 }
 
 /* Marca */
@@ -615,7 +615,7 @@ onMounted(() => {
 @media (max-width: 960px) {
   .cn-sidebar {
     margin: 0;
-    border-radius: 0 28px 28px 0 !important;
+    border-radius: 0 !important;
     height: 100vh !important;
   }
 
