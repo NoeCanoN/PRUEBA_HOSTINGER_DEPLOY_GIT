@@ -55,6 +55,7 @@
           activator="parent"
           location="right"
           transition="scale-transition"
+          content-class="cn-tooltip"
         >
           {{ item.title }}
         </v-tooltip>
@@ -184,7 +185,8 @@ const menuItems = computed(() => {
 .cn-nav-item {
   color: #334155 !important;
   font-weight: 600 !important;
-  margin-bottom: 4px !important;
+  margin-bottom: 6px !important;
+  border-radius: 12px !important; /* Estilo redondeado inicial y orgánico */
   transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1) !important;
 }
 
@@ -194,6 +196,7 @@ const menuItems = computed(() => {
 
 .cn-nav-item:hover {
   transform: translateX(4px);
+  border-radius: 16px 8px 16px 16px !important; /* Transición orgánica suave al pasar el cursor */
 }
 
 .cn-nav-item :deep(.v-list-item__overlay) {
@@ -213,12 +216,13 @@ const menuItems = computed(() => {
   display: flex !important;
   justify-content: center !important;
   align-items: center !important;
-  border-radius: 50% !important; /* Círculo perfecto */
+  border-radius: 12px !important; /* Squircle orgánico en vez de círculo perfecto */
   margin-bottom: 8px !important;
 }
 
 .cn-sidebar.v-navigation-drawer--rail :deep(.cn-nav-item:hover) {
   transform: scale(1.08) !important; /* Micro-animación de escala en vez de traslación */
+  border-radius: 16px 8px 16px 16px !important;
 }
 
 .cn-sidebar.v-navigation-drawer--rail :deep(.v-list-item__prepend) {
@@ -239,12 +243,18 @@ const menuItems = computed(() => {
   display: none !important;
 }
 
+.cn-sidebar.v-navigation-drawer--rail :deep(.cn-nav-item--active) {
+  transform: scale(1.05) !important; /* Escala sutil en modo rail en vez de traslación */
+  border-radius: 16px 6px 16px 16px !important; /* Estilo orgánico compacto */
+}
+
 /* Item activo */
 .cn-nav-item--active {
   background: linear-gradient(135deg, #F97316 0%, #EA580C 100%) !important;
   color: #ffffff !important;
-  box-shadow: 0 10px 22px rgba(249, 115, 22, 0.4) !important;
-  transform: translateX(0) !important;
+  border-radius: 20px 6px 20px 20px !important; /* Forma de hoja/pebble orgánica y muy redondeada */
+  box-shadow: 0 10px 22px rgba(249, 115, 22, 0.35) !important;
+  transform: translateX(4px) !important; /* Sobresale sutilmente cuando está activo */
 }
 
 .cn-nav-item--active :deep(.v-icon) {
